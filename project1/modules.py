@@ -134,6 +134,11 @@ class MnistClassifier(L.LightningModule):
         self.log("test/accuracy", accuracy, prog_bar=True)
         return loss
 
+    def predict_step(self, batch: tuple[torch.Tensor], batch_idx: int):
+        x = batch[0]
+        y_hat = self.mlp(x)
+        return y_hat
+
     def configure_optimizers(self):
         optimizer = torch.optim.Adam(self.parameters())
         return optimizer
