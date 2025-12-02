@@ -120,7 +120,7 @@ class MnistClassifier(L.LightningModule):
         x, y = batch
         y_hat = self.mlp(x)
         loss = F.cross_entropy(y_hat, y)
-        accuracy = self.accuracy()
+        accuracy = self.accuracy(y_hat, y)
         self.log("val/loss", loss, prog_bar=True)
         self.log("val/accuracy", accuracy, prog_bar=True)
         return loss

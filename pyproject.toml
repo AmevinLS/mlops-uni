@@ -18,11 +18,16 @@ dependencies = [
     "pydantic>=2.12.5",
     "pydantic-settings>=2.12.0",
     "torchmetrics>=1.8.2",
+    "bentoml>=1.4.30",
 ]
 requires-python = "==3.12.*"
 readme = "README.md"
 license = { text = "MIT" }
 
-
 [tool.pdm]
 distribution = false
+
+[[tool.pdm.source]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+include_packages = ["torch", "torchvision"]

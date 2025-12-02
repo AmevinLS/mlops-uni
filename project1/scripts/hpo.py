@@ -14,9 +14,14 @@ SETTINGS = Settings()
 
 def objective(trial: Trial):
     dropout = trial.suggest_float("dropout", 0.0, 1.0)
-    hidden_layer_sizes = trial.suggest_categorical(
-        "hidden_layer_sizes", [(128, 64), (128, 64, 32), (64, 128, 32)]
+
+    hidden_layer_sizes_options = {
+        str(sizes): sizes for sizes in [(128, 64), (128, 64, 32), (64, 128, 32)]
+    }
+    hidden_layer_sizes_key = trial.suggest_categorical(
+        "hidden_layer_sizes", list(hidden_layer_sizes_options.keys())
     )
+    hidden_layer_sizes = hidden_layer_sizes_options[hidden_layer_sizes_key]
 
     mnist_datamodule = MnistDataModule(
         SETTINGS.MNIST_DATA_DIR,
